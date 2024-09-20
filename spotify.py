@@ -1,3 +1,4 @@
+import csv
 import pandas as pd
 import numpy as np
 
@@ -6,6 +7,7 @@ import numpy as np
 
 spotify = pd.read_csv('your_top_songs_2023.csv')
 indie = pd.read_csv('indie.csv')
+house = pd.read_csv('house_music.csv')
 
 # def distance_2d(x1, x2, y1, y2):
 #     return ((x1 - y1)**2 + (x2 - y2)**2)**(1/2)
@@ -38,9 +40,6 @@ def songs_by_attributes(data_table, v1, v2, v3, k):
     sorted_table = table_with_distances.sort_values('distances').head(k)
     songs_and_artists = sorted_table.loc[:, ['Track Name', 'Artist Name(s)']]
 
-    # for song in songs_and_artists:
-    #     if song.loc[:, ['Track Name', 'Artist Name(s)']] in lst:
-
     return songs_and_artists
 
 def songs_by_one_attribute(data_table, att, k):
@@ -48,8 +47,17 @@ def songs_by_one_attribute(data_table, att, k):
     relevant_table = data_table.loc[:, ['Track Name', 'Artist Name(s)', att]]
     sorted_table = relevant_table.sort_values(att, ascending = False).head(k)
     songs_and_artists = sorted_table.loc[:, ['Track Name', 'Artist Name(s)']]
+    print()
     return songs_and_artists
+
+def make_playlist_csv(df):
+    playlist_list = df.values.tolist()
+    with open('playlist', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["TITLE","ARTIST"]) 
+        writer.writerows(playlist_list)
 
 # print(songs_by_one_attribute(spotify, 'Instrumentalness', 5))
 
-print(songs_by_attributes(indie, "Loudness", "Danceability", "Energy", 10))
+top_songs = songs_by_attributes(indie, "Loudness", "Danceability", "Energy", 10)
+make_playlist_csv(top_songs)
