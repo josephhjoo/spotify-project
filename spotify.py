@@ -32,7 +32,7 @@ def songs_by_attributes(data_table, attributes, k):
             return None
     
     # Sorts by requested attributes
-    sorted_table = data_table.sort_values(by=attributes)
+    sorted_table = data_table.sort_values(by=attributes, ascending=False)
  
     # Finds the kth maximum songs based on song parameters
     songs_and_artists = sorted_table.loc[:, ['Track Name', 'Artist Name(s)']].head(k)
