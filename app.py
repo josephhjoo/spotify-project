@@ -20,3 +20,5 @@ def house():
     header = "this is a house playlist generator"
     return header
 
+if __name__ == "__main__":
+    app.run()
