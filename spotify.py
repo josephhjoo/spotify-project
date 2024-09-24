@@ -15,6 +15,14 @@ house = pd.read_csv('house_music.csv')
 def distance_3d(x1, x2, x3, y1, y2, y3):
     return ((x1 - y1)**2 + (x2 - y2)**2 + (x3 - y3)**2)**(1/2)
 
+def distance(tables_1, tables_2):
+    if tables_1.size != tables_2.size:
+        raise Exception("Mismatching column sizes")
+    radicand = 0
+    for i in range(tables_1.size):
+        radicand += (tables_2[i] - tables_1[i])**2
+    return radicand**(1/2)
+    
 # def table_select_3_attributes(data_table, v1, v2, v3):
 #     return data_table.loc[:, [v1, v2, v3]]
 
