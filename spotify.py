@@ -8,23 +8,6 @@ import numpy as np
 spotify = pd.read_csv('your_top_songs_2023.csv')
 indie = pd.read_csv('indie.csv')
 house = pd.read_csv('house_music.csv')
-
-'''
-This method calculates the distance between two tables of
-values
-
-@param tables_1 First table
-@param tables_2 Second table
-@return The distance table between each corresponding value
-'''
-def distance(tables_1, tables_2):
-    # if tables_1.size != tables_2.size:
-    #     print(tables_1.size, tables_2.size)
-    #     raise Exception("Mismatching column sizes")
-    radicand = 0
-    for i in range(tables_1.size):
-        radicand += (tables_2[i] - tables_1[i])**2
-    return radicand**(1/2)
     
 '''
 This method returns a Dataframe of k songs which matches a 
@@ -48,15 +31,11 @@ def songs_by_attributes(data_table, attributes, k):
             print(f"{i} is not a valid song parameter")
             return None
     
-    # Retrieves requested attributes
-    relevant_table = data_table.loc[:, ['Track Name', 'Artist Name(s)'] + attributes]
-    # Finds how close they are to maximized song parameters
-    att_arr = np.array([relevant_table[i] for i in attributes])
-    distance_column = distance(np.ones(len(attributes)), att_arr)
-    table_with_distances = relevant_table.assign(distances = distance_column)
+    # Sorts by requested attributes
+    sorted_table = data_table.sort_values(by=attributes)
+ 
     # Finds the kth maximum songs based on song parameters
-    sorted_table = table_with_distances.sort_values('distances').head(k)
-    songs_and_artists = sorted_table.loc[:, ['Track Name', 'Artist Name(s)']]
+    songs_and_artists = sorted_table.loc[:, ['Track Name', 'Artist Name(s)']].head(k)
 
     return songs_and_artists
 
@@ -73,5 +52,5 @@ def make_playlist_csv(df):
         writer.writerow(["TITLE","ARTIST"]) 
         writer.writerows(playlist_list)
 
-top_songs = songs_by_attributes(indie, ["Tempo"], 10)
+top_songs = songs_by_attributes(indie, ["Speechiness", "Liveness", "Loudness"], 10)
 make_playlist_csv(top_songs)
