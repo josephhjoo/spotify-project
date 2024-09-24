@@ -9,12 +9,14 @@ spotify = pd.read_csv('your_top_songs_2023.csv')
 indie = pd.read_csv('indie.csv')
 house = pd.read_csv('house_music.csv')
 
-# def distance_2d(x1, x2, y1, y2):
-#     return ((x1 - y1)**2 + (x2 - y2)**2)**(1/2)
+'''
+This method calculates the distance between two tables of
+values
 
-# def distance_3d(x1, x2, x3, y1, y2, y3):
-#     return ((x1 - y1)**2 + (x2 - y2)**2 + (x3 - y3)**2)**(1/2)
-
+@param tables_1 First table
+@param tables_2 Second table
+@return The distance table between each corresponding value
+'''
 def distance(tables_1, tables_2):
     # if tables_1.size != tables_2.size:
     #     print(tables_1.size, tables_2.size)
@@ -24,9 +26,15 @@ def distance(tables_1, tables_2):
         radicand += (tables_2[i] - tables_1[i])**2
     return radicand**(1/2)
     
-# def table_select_3_attributes(data_table, v1, v2, v3):
-#     return data_table.loc[:, [v1, v2, v3]]
+'''
+This method returns a Dataframe of k songs which matches a 
+list of attributes
 
+@param data_table Genre of music to pull from
+@param attributes A list of attributes the sort from
+@param k          Number of songs returned
+@return A Dataframe corresponding the attributes sorted by
+'''
 def songs_by_attributes(data_table, attributes, k):
     # returns table with k rows that relate most to three attributes of choice (v1, v2, v3) from data_table
     # Checks if k is a valid number of songs
@@ -52,22 +60,18 @@ def songs_by_attributes(data_table, attributes, k):
 
     return songs_and_artists
 
-# def songs_by_one_attribute(data_table, att, k):
-#     # returns table with k rows that relate most to one attribute of choice (att) from data_table
-#     relevant_table = data_table.loc[:, ['Track Name', 'Artist Name(s)', att]]
-#     sorted_table = relevant_table.sort_values(att, ascending = False).head(k)
-#     songs_and_artists = sorted_table.loc[:, ['Track Name', 'Artist Name(s)']]
-#     print()
-#     return songs_and_artists
+'''
+This method generates a CSV file containing the trackname and artist
+of a provided Dataframe
 
+@param df Dataframe to retrieve from
+'''
 def make_playlist_csv(df):
     playlist_list = df.values.tolist()
     with open('playlist', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(["TITLE","ARTIST"]) 
         writer.writerows(playlist_list)
-
-# print(songs_by_one_attribute(spotify, 'Instrumentalness', 5))
 
 top_songs = songs_by_attributes(indie, ["Tempo"], 10)
 make_playlist_csv(top_songs)
