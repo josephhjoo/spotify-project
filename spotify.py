@@ -11,13 +11,42 @@ from flask import Flask, request
 # indie = pd.read_csv("indie.csv")
 # house = pd.read_csv("house_music.csv")
 
+app = Flask(__name__)
+@app.route("/")
+def home(name=None):
+    return flask.render_template('home.html', name=name)
+
+@app.route("/genres")
+def genre_selection(name=None):
+    return flask.render_template('genres.html', name=name)
+
+@app.route("/attributes")
+def attribute_selection(name=None):
+    return flask.render_template('attributes.html', name=name)
+
+# Testing html
+@app.route("/indie")
+def indie_test(name=None):
+    return flask.render_template('indie.html', name=name)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+    
+@app.route('/results', methods=['GET', 'POST'])
+def create_playlist():
+    if request.method == 'POST':
+        genre = request.form.get("genre_selection")
+        df = genre_df(genre)
+        
+
+
 """
 This method selects which CSV file to generate a playlist 
 from
 @param A string representing the genre desired
 @return A Dataframe containing the respective spotify information
 """
-def genre_csv(genre):
+def genre_df(genre):
     csv_name = genre + ".csv"
     for root, dirs, files in os.walk("."):
         if csv_name in files:
@@ -68,6 +97,6 @@ def make_playlist_csv(df):
         writer.writerow(["TITLE", "ARTIST"])
         writer.writerows(playlist_list)
 
-indie = genre_csv("indie")
+indie = genre_df("indie")
 top_songs = songs_by_attributes(indie, ["Speechiness", "Liveness", "Acousticness"], 10)
 make_playlist_csv(top_songs)
