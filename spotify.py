@@ -38,8 +38,6 @@ def create_playlist():
         genre = request.form.get("genre_selection")
         df = genre_df(genre)
         
-
-
 """
 This method selects which CSV file to generate a playlist 
 from
