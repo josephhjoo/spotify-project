@@ -7,10 +7,6 @@ from flask import Flask, request
 # column index: 0 (Spotify ID), 1 (Artist IDs) , 2 (Track Name) , 3 (Album Name), 4 (Artist Name(s)), 5 (Release Date), 6 (Duration (ms)), 7 (Popularity), 8 (Added By), 9 (Added At), 10 (Genres), 11 (Danceability), 12 (Energy), 13 (Key), 14 (Loudness), 15 (Mode), 16 (Speechiness), 17 (Acousticness), 18 (Instrumentalness), 19 (Liveness), 20 (Valence), 21 (Tempo), 22 (Time Signature)
 # BATHROOM CODE: 12344
 
-# spotify = pd.read_csv("your_top_songs_2023.csv")
-# indie = pd.read_csv("indie.csv")
-# house = pd.read_csv("house_music.csv")
-
 app = Flask(__name__)
 @app.route("/")
 def home(name=None):
