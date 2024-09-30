@@ -25,8 +25,8 @@ def attribute_selection(name=None):
 def indie_test(name=None):
     return flask.render_template('indie.html', name=name)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
     
 @app.route('/results', methods=['GET', 'POST'])
 def create_playlist():
@@ -91,6 +91,6 @@ def make_playlist_csv(df):
         writer.writerow(["TITLE", "ARTIST"])
         writer.writerows(playlist_list)
 
-indie = genre_df("indie")
-top_songs = songs_by_attributes(rb, ["Speechiness", "Liveness", "Acousticness"], 10)
+indie = genre_df("rap")
+top_songs = songs_by_attributes(indie, ["Speechiness", "Liveness", "Acousticness"], 5)
 make_playlist_csv(top_songs)
