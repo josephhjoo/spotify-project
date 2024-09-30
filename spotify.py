@@ -92,5 +92,5 @@ def make_playlist_csv(df):
         writer.writerows(playlist_list)
 
 indie = genre_df("indie")
-top_songs = songs_by_attributes(indie, ["Speechiness", "Liveness", "Acousticness"], 10)
+top_songs = songs_by_attributes(rb, ["Speechiness", "Liveness", "Acousticness"], 10)
 make_playlist_csv(top_songs)
