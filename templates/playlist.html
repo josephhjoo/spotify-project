@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Playlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .playlist {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .song {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .song:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generated Playlist</h1>
+    <div class="playlist">
+        {% for song in playlist %}
+        <div class="song">
+            <strong>{{ song[0] }}</strong><br>
+            <span>{{ song[1] }}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2>Import to Your Spotify Library</h2>
+    <form method="POST" action="{{ url_for('import_to_spotify') }}">
+        <button type="submit">Import Playlist to Spotify</button>
+    </form>
+</body>
+</html>
