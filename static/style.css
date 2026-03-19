@@ -1,0 +1,300 @@
+/* Styles basic app components (buttons, frames, etc.) */
+
+:root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --surface-soft: #f9fafb;
+    --border: #e5e7eb;
+    --text: #111827;
+    --muted: #6b7280;
+    --green: #1db954;
+    --green-dark: #169c46;
+    --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --max-width: 840px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 20px;
+}
+
+.page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.genre-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.genre-form {
+    width: 100%;
+}
+
+.genre-button,
+.primary-button,
+.secondary-button,
+.attribute-btn {
+    border: none;
+    border-radius: var(--radius-sm);
+    transition: 0.2s ease;
+    cursor: pointer;
+    font: inherit;
+}
+
+.genre-button,
+.primary-button {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 14px 18px;
+}
+
+.genre-button:hover,
+.primary-button:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+}
+
+.genre-button:active,
+.primary-button:active {
+    transform: translateY(0);
+}
+
+.attributes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.attribute-btn {
+    padding: 10px 16px;
+    background: var(--surface-soft);
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.attribute-btn:hover {
+    background: #f3f4f6;
+}
+
+.attribute-btn.active {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+.form-group {
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: white;
+    color: var(--text);
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.12);
+}
+
+.playlist-summary {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    margin-bottom: 24px;
+}
+
+.playlist-summary h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.summary-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+}
+
+.summary-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.summary-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.playlist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+}
+
+.album-cover {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #e5e7eb;
+    flex-shrink: 0;
+}
+
+.song-info {
+    min-width: 0;
+}
+
+.song-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.song-artist {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.import-form,
+.center-actions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.secondary-button {
+    display: inline-block;
+    background: white;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.secondary-button:hover {
+    background: var(--surface-soft);
+}
+
+.success-message {
+    text-align: center;
+    padding: 12px 0;
+}
+
+.success-message h1 {
+    font-size: 1.9rem;
+    margin-bottom: 12px;
+}
+
+.success-message p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.hidden-input {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 20px 14px;
+    }
+
+    .container {
+        padding: 22px 18px;
+    }
+
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .playlist-item {
+        align-items: flex-start;
+    }
+}

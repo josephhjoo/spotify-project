@@ -1,0 +1,155 @@
+<!-- HTML styling for attributes page --> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Attributes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .attributes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .attribute-btn {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #ddd;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .attribute-btn.active {
+            background-color: #1db954;
+            color: white;
+        }
+
+        .attribute-btn:hover {
+            background-color: #bbb;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label[for="playlist_length"] {
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #1db954;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #17a743;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const attributeButtons = document.querySelectorAll(".attribute-btn");
+            const hiddenInput = document.querySelector("#selected-attributes");
+            const form = document.querySelector("form");
+
+            attributeButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    button.classList.toggle("active");
+                });
+            });
+
+            form.addEventListener("submit", function (event) {
+                const activeButtons = document.querySelectorAll(".attribute-btn.active");
+                const selectedAttributes = Array.from(activeButtons).map(btn => btn.dataset.value);
+
+                if (selectedAttributes.length === 0) {
+                    event.preventDefault();
+                    alert("Please select at least one attribute.");
+                    return;
+                }
+
+                hiddenInput.value = selectedAttributes.join(",");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Attributes for Your {{ genre_display }} Playlist</h1>
+
+        <form method="POST">
+            <div class="attributes">
+                {% for attribute in attributes %}
+                    <button type="button" class="attribute-btn" data-value="{{ attribute }}">
+                        {{ attribute }}
+                    </button>
+                {% endfor %}
+            </div>
+
+            <input type="hidden" name="attributes" id="selected-attributes" required>
+
+            <div class="input-group">
+                <label for="playlist_length">Number of Songs:</label>
+                <input type="number" name="playlist_length" id="playlist_length" min="1" required>
+            </div>
+
+            <button type="submit">Generate Playlist</button>
+        </form>
+    </div>
+</body>
+</html>

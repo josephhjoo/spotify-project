@@ -1,0 +1,39 @@
+<!-- HTML styling for main (genre selection) page --> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Genre</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="container">
+            <div class="page-header">
+                <h1>Build a Spotify Playlist</h1>
+                <p>Choose a genre to start generating a playlist based on audio attributes like energy, danceability, and more.</p>
+            </div>
+
+            <div class="genre-grid">
+                <form action="{{ url_for('pages.attributes_page', genre='indie') }}" method="get" class="genre-form">
+                    <button type="submit" class="genre-button">Indie</button>
+                </form>
+
+                <form action="{{ url_for('pages.attributes_page', genre='house') }}" method="get" class="genre-form">
+                    <button type="submit" class="genre-button">House</button>
+                </form>
+
+                <form action="{{ url_for('pages.attributes_page', genre='rap') }}" method="get" class="genre-form">
+                    <button type="submit" class="genre-button">Rap</button>
+                </form>
+
+                <form action="{{ url_for('pages.attributes_page', genre='rb') }}" method="get" class="genre-form">
+                    <button type="submit" class="genre-button">R&amp;B</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

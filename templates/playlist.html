@@ -1,0 +1,52 @@
+<!-- HTML styling for playlist display page --> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Playlist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="container">
+            <div class="page-header">
+                <h1>Your Generated Playlist</h1>
+                <p>Here are the songs that best match the attributes you selected.</p>
+            </div>
+
+            {% if summary %}
+            <div class="playlist-summary">
+                <h2>Playlist Attribute Summary</h2>
+                <div class="summary-grid">
+                    {% for attr, value in summary.items() %}
+                        <div class="summary-card">
+                            <span class="summary-label">{{ attr }}</span>
+                            <span class="summary-value">{{ value }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="playlist-list">
+                {% for song in playlist %}
+                <div class="playlist-item">
+                    <img src="{{ song['Album Cover'] }}" alt="Album Cover" class="album-cover">
+                    <div class="song-info">
+                        <p class="song-title">{{ song['Track Name'] }}</p>
+                        <p class="song-artist">{{ song['Artist Name(s)'] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <form action="{{ url_for('pages.import_to_spotify') }}" method="POST" class="import-form">
+                <input type="hidden" name="playlist_csv" value="{{ playlist_csv }}">
+                <button type="submit" class="primary-button">Import to Spotify</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
